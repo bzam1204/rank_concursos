@@ -41,6 +41,8 @@ export const UserRepository: IUserRepository = {
         INSERT INTO public."user" (username, email, password_hash, full_name) 
         VALUES (${username}, ${email}, ${password_hash}, ${full_name});`;
 
+        if (!createdUser) throw new Error("Something Went Wrong");
+
         return createdUser;
     },
 };

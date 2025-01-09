@@ -29,7 +29,7 @@ export function SignupForm() {
                     </ul>
                 </div>
             )}
-            <button type="submit">Submit</button>
+            <button type="submit">{pending ? "..." : "Registrar-se"}</button>
         </form>
     )
 }

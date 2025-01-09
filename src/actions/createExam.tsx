@@ -2,6 +2,7 @@
 
 import { CreateExamSchema, FormState } from "@/lib/definitions";
 import { ExamService } from "@/lib/services/ExamService";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 export async function createExam(state: FormState, formData: FormData) {
@@ -15,7 +16,10 @@ export async function createExam(state: FormState, formData: FormData) {
 
     const exam = await ExamService.create(validatedFields.data);
 
-    if (exam) redirect(`/concurso/${exam.id}`)
+    if (exam) {
+        revalidatePath('/concurso')
+        redirect(`/concurso/${exam.id}`)
+    }
 
     throw new Error('algo deu errado');
 }

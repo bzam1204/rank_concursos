@@ -15,9 +15,7 @@ export function ExamSearchList({ getExams }: Readonly<ExamSearchListProps>) {
 
     const [filtered, setFiltered] = useState(exams);
 
-    useEffect(() => setFiltered(exams.filter(p => p.name.toLowerCase().includes(search.toLowerCase()))), [search])
-
-
+    useEffect(() => setFiltered(exams.filter(p => p.name.toLowerCase().includes(search.toLowerCase()))), [search, exams])
 
     return (
         <div className="flex flex-col gap-1 w-10/12 md:w-2/5">
@@ -28,7 +26,7 @@ export function ExamSearchList({ getExams }: Readonly<ExamSearchListProps>) {
                         <div className="bg-blue-400 w-full rounded hover:bg-blue-500 py-1 px-2 text-white">{exam.name}</div>
                     </Link>
                 )))
-                : (<p>"Nenhum Concurso Aberto"</p>)
+                : (<p>Nenhum Concurso Aberto</p>)
             }
         </div>
     )
