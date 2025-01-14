@@ -7,7 +7,9 @@ export default function App() {
 
             <Link className="bg-blue-300 w-fit rounded hover:bg-blue-400 py-1 px-2 text-white" href="/concurso/create">Criar novo rank de concurso</Link>
 
-            <Link className="bg-blue-300 w-fit rounded hover:bg-blue-400 py-1 px-2 text-white" href="/concurso">Ver Concursos Abertos</Link>
+            <Link className="bg-blue-300 w-fit rounded hover:bg-blue-400 py-1 px-2 text-white" href="/concurso">Ver Rankings Abertos</Link>
+            
+            <Link className="bg-blue-300 w-fit rounded hover:bg-blue-400 py-1 px-2 text-white" href="/concurso/busca">Ver Concursos Abertos</Link>
         </div>
     );
 }
