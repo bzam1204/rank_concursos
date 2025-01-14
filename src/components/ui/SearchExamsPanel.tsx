@@ -29,7 +29,7 @@ export function SearchExamsPanel({ resource }: Readonly<SearchExamsPanelProps<Ce
     const renderList = (arr: CebraspeEvento[]) => (
         <>{arr.length > 0
             ? arr.map(item => (
-                <Link key={item.idEvento + item.eventoNomeAbreviado + item.eventoURL} href={`https://www.cebraspe.org.br/concursos/AEB_24/${item.eventoURL}`}>
+                <Link key={item.idEvento + item.eventoNomeAbreviado + item.eventoURL} href={`https://www.cebraspe.org.br/concursos/${item.eventoURL}`}>
                     <div className="bg-blue-400 w-full rounded hover:bg-blue-500 py-1 px-2 text-white">{item.eventoNomeAbreviado}</div>
                 </Link>
             ))
@@ -43,16 +43,18 @@ export function SearchExamsPanel({ resource }: Readonly<SearchExamsPanelProps<Ce
                 <input id="search" name="search" placeholder="buscar concurso" value={search} onChange={(e) => {
                     const value = e.target.value;
 
+                    setSearch(value)
+
                     if (value !== '') {
                         setHasFilter(true)
+                        setFiltered(items.filter(p => p.eventoNomeAbreviado.toLowerCase().includes(search.toLowerCase())))
                     }
                     else {
+                        setFiltered(items);
                         setHasFilter(false);
                     }
 
-                    setSearch(value)
 
-                    setFiltered(items.filter(p => p.eventoNomeAbreviado.toLowerCase().includes(search.toLowerCase())))
                 }} className="border-blue-400 border-2 rounded indent-1" />
                 <select name="status" defaultValue="Label" onChange={(e) => {
                     const value = e.target.value;
@@ -60,12 +62,12 @@ export function SearchExamsPanel({ resource }: Readonly<SearchExamsPanelProps<Ce
                         ? items
                         : items.filter(p => p.eventoStatus === value);
 
-                        if (value !== '*') {
-                            setHasFilter(true)
-                        }
-                        else {
-                            setHasFilter(false);
-                        }
+                    if (value !== '*') {
+                        setHasFilter(true)
+                    }
+                    else {
+                        setHasFilter(false);
+                    }
 
                     setFiltered(list)
                 }}>
@@ -79,11 +81,7 @@ export function SearchExamsPanel({ resource }: Readonly<SearchExamsPanelProps<Ce
                     <h1>{opt}</h1>
                     <div className="flex flex-col gap-2">
                         {filtered.filter(p => p.eventoStatus === opt).length > 0
-                            ? (filtered.filter(p => p.eventoStatus === opt).map(item => (
-                                <Link key={item.idEvento + item.eventoNomeAbreviado + item.eventoURL} href={`https://www.cebraspe.org.br/concursos/AEB_24/${item.eventoURL}`}>
-                                    <div className="bg-blue-400 w-full rounded hover:bg-blue-500 py-1 px-2 text-white">{item.eventoNomeAbreviado}</div>
-                                </Link>
-                            )))
+                            ? (renderList(filtered.filter(p => p.eventoStatus === opt)))
                             : (<p>Nenhum Concurso Aberto</p>)
                         }
                     </div>
